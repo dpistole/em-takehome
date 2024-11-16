@@ -1,8 +1,13 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { accounts, categories, transactions } from "./mockData";
+import { cors } from "hono/cors";
 
 const app = new Hono();
+
+// allow all requests regardless of origin (probably not something we'd do in
+// production, dependant on product/service)
+app.use(cors())
 
 app
   .get("/accounts", (c) => {
@@ -13,6 +18,9 @@ app
   })
   .get("/transactions", (c) => {
     return c.json(transactions);
+  })
+  .get("/spending-trackers", (c) => {
+    return c.json([])
   });
 
 const port = 3000;

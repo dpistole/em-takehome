@@ -1,0 +1,1 @@
+ - the mock API is understandably lacking authentication and authorization logic, I assume we would be using httpOnly cookies (or a token, depending on use case) in a real world scenario
