@@ -1,11 +1,9 @@
 function App() {
   return (
-    <main>
-      <p>
-        Hello dev
-      </p>
+    <main className="bg-pink-500 min-h-screen">
+      <p>Hello dev</p>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
