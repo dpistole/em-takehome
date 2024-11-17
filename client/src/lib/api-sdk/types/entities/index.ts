@@ -34,4 +34,7 @@ export interface Transaction {
 
 export interface SpendingTracker {
   id: string;
+  spend_limit: number;
+  category_id: string;
+  interval: "week" | "month";
 }

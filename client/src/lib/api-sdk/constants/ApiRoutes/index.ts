@@ -11,4 +11,7 @@ export const ApiRoutes = {
   listSpendingTrackers: {
     getPath: () => "/spending-trackers",
   },
+  createSpendingTracker: {
+    getPath: () => "/spending-trackers/create"
+  }
 };

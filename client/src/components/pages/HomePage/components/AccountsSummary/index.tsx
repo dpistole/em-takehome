@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { AppRoutes } from "../../../../../constants/AppRoutes";
 import { Account } from "../../../../../lib/api-sdk/types/entities";
 import { AccountSummaryListItem } from "../../../../accounts/AccountSummaryItem";
+import { SectionHeader } from "../../../../SectionHeader";
+import { ButtonRow } from "../../../../ButtonRow";
 
 interface AccountsSummaryProps {
   accounts: Account[];
@@ -22,9 +24,7 @@ export const AccountsSummary = (props: AccountsSummaryProps) => {
       <div className="flex p-8">
         <div className="flex-grow">
           <Link to={AppRoutes.Accounts.listAccounts.getPath()}>
-            <div>
-              <span className="font-bold text-2xl">All Accounts</span>
-            </div>
+            <SectionHeader label="All Accounts" />
             <div>Total: $0</div>
           </Link>
         </div>
@@ -51,11 +51,7 @@ export const AccountsSummary = (props: AccountsSummaryProps) => {
             className="w-full"
             to={AppRoutes.Accounts.listAccounts.getPath()}
           >
-            <div className="bg-slate-300 rounded-full w-full py-4 px-8 text-center">
-              <span className="font-bold">
-                View All ({totalNumberOfAccounts})
-              </span>
-            </div>
+            <ButtonRow label={`View All (${totalNumberOfAccounts})`} />
           </Link>
         </div>
       )}

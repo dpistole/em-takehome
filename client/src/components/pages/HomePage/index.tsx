@@ -7,6 +7,7 @@ import { useListSpendingTrackersQuery } from "../../../lib/api-sdk/hooks/useList
 import { useListTransactionsQueryQuery } from "../../../lib/api-sdk/hooks/useListTransactionsQuery";
 import { AccountsSummary } from "./components/AccountsSummary";
 import { Header } from "../../Header";
+import { SectionHeader } from "../../SectionHeader";
 
 export const HomePage = () => {
   const listAccountsQuery = useListAccountsQuery({
@@ -26,16 +27,30 @@ export const HomePage = () => {
   });
 
   return (
-    <div>
+    <div data-test-id="home-page">
       <Header title="Analysis" />
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col">
         {listAccountsQuery.isSuccess && (
           <AccountsSummary accounts={listAccountsQuery.data} />
         )}
-        <Link to={AppRoutes.addSpendTracker.getPath()}>Add Spend Tracker</Link>
-        <Link to={AppRoutes.SpendTrackers.listSpendTrackers.getPath()}>
-          List Spend Trackers
-        </Link>
+        <div className="flex bg-white">
+          <div className="flex-grow">
+            <Link
+              className="h-full w-full flex items-center justify-start px-8"
+              to={AppRoutes.SpendTrackers.listSpendTrackers.getPath()}
+            >
+              <SectionHeader label="Trackers" />
+            </Link>
+          </div>
+          <div className="flex-shrink p-4 flex items-center">
+            <Link
+              className="h-full w-full flex items-center justify-start px-8"
+              to={AppRoutes.addSpendTracker.getPath()}
+            >
+              [ add ]
+            </Link>
+          </div>
+        </div>
       </div>
       <hr />
       <div className="text-3xl">Test Data, Remove</div>

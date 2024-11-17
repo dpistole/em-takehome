@@ -29,3 +29,10 @@ export interface Transaction {
   payment_channel: string;
   pending: boolean;
 }
+
+export interface SpendTracker {
+  id: string;
+  spend_limit: number;
+  category_id: string;
+  interval: "week" | "month",
+}
