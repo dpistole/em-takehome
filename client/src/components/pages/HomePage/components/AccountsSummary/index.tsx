@@ -1,9 +1,11 @@
 import { Link } from "@tanstack/react-router";
+import currency from "currency.js";
+import { useMemo } from "react";
 import { AppRoutes } from "../../../../../constants/AppRoutes";
 import { Account } from "../../../../../lib/api-sdk/types/entities";
 import { AccountSummaryListItem } from "../../../../accounts/AccountSummaryItem";
-import { SectionHeader } from "../../../../SectionHeader";
 import { ButtonRow } from "../../../../ButtonRow";
+import { SectionHeader } from "../../../../SectionHeader";
 
 interface AccountsSummaryProps {
   accounts: Account[];
@@ -18,6 +20,13 @@ export const AccountsSummary = (props: AccountsSummaryProps) => {
     props.maxSummariesCount ?? DEFAULT_MAX_SUMMARIES_COUNT;
   // we only display a specified number of accounts in the summary
   const summarizedAccounts = props.accounts.slice(0, maxSummariesCount);
+  const accountsTotal = useMemo(() => {
+    let totalBalance = currency(0);
+    for (const account of props.accounts) {
+      totalBalance = totalBalance.add(account.balances.current);
+    }
+    return totalBalance.value;
+  }, [props.accounts]);
 
   return (
     <div data-test-id="accounts-summary" className="bg-white">
@@ -25,7 +34,7 @@ export const AccountsSummary = (props: AccountsSummaryProps) => {
         <div className="px-4 flex-grow hover:bg-slate-200">
           <Link to={AppRoutes.Accounts.listAccounts.getPath()}>
             <SectionHeader label="All Accounts" />
-            <div>Total: $0</div>
+            <div>Total: {currency(accountsTotal).format()}</div>
           </Link>
         </div>
         <div className="flex flex-shrink items-center justify-center px-4">
