@@ -5,6 +5,8 @@ import { buildTimeVariables } from "../../../buildTimeVariables";
 import { useListCategoriesQuery } from "../../../lib/api-sdk/hooks/useListCategoriesQuery";
 import { useListSpendingTrackersQuery } from "../../../lib/api-sdk/hooks/useListSpendingTrackersQuery";
 import { useListTransactionsQueryQuery } from "../../../lib/api-sdk/hooks/useListTransactionsQuery";
+import { AccountsSummary } from "./components/AccountsSummary";
+import { Header } from "../../Header";
 
 export const HomePage = () => {
   const listAccountsQuery = useListAccountsQuery({
@@ -25,15 +27,11 @@ export const HomePage = () => {
 
   return (
     <div>
-      <h1 className="text-4xl">Home Page</h1>
-      <div className="flex flex-col space-y-4 py-8">
-        <div>
-          <div>
-            <Link to={AppRoutes.Accounts.listAccounts.getPath()}>
-              All Accounts
-            </Link>
-          </div>
-        </div>
+      <Header title="Analysis" />
+      <div className="flex flex-col space-y-4">
+        {listAccountsQuery.isSuccess && (
+          <AccountsSummary accounts={listAccountsQuery.data} />
+        )}
         <Link to={AppRoutes.addSpendTracker.getPath()}>Add Spend Tracker</Link>
         <Link to={AppRoutes.SpendTrackers.listSpendTrackers.getPath()}>
           List Spend Trackers
