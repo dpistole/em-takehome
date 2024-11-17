@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
-import { accounts, categories, transactions } from "./mockData";
+import { accounts, categories, SpendingTrackers, transactions } from "./mockData";
 import { cors } from "hono/cors";
-import { SpendTracker } from "./types";
+import { SpendingTracker } from "./types";
 import { z } from "zod";
 import { randomUUID } from "node:crypto";
 
@@ -12,8 +12,8 @@ const app = new Hono();
 // production, dependant on product/service)
 app.use(cors())
 
-
-const spendTrackersDatabase: SpendTracker[] = []
+// cutting edge database technology
+const spendingTrackersDatabase: SpendingTracker[] = SpendingTrackers;
 
 app
   .get("/accounts", (c) => {
@@ -26,7 +26,7 @@ app
     return c.json(transactions);
   })
   .get("/spending-trackers", (c) => {
-    return c.json(spendTrackersDatabase)
+    return c.json(spendingTrackersDatabase)
   })
   .post("/spending-trackers/create", async (c) => {
     try {
@@ -44,16 +44,16 @@ app
         }, 400)
       }
 
-      const newSpendTracker: SpendTracker = {
+      const newSpendingTracker: SpendingTracker = {
         id: randomUUID(),
         category_id: parseResult.data.categoryId,
         spend_limit: parseResult.data.spendLimit,
         interval: parseResult.data.interval,
       }
 
-      spendTrackersDatabase.push(newSpendTracker)
+      spendingTrackersDatabase.push(newSpendingTracker)
 
-      return c.json(newSpendTracker);
+      return c.json(newSpendingTracker);
 
     } catch (error) {
       return c.json({

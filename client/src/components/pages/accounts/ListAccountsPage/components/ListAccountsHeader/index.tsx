@@ -11,7 +11,7 @@ export const ListAccountsHeader = () => {
       rightButton={
         <a href={"https://www.google.com/search?q=how+to+integrate+with+plaid"}>
           <div className="hover:bg-slate-200 w-full h-full px-4 flex items-center justify-center">
-            [icon]
+            [add]
           </div>
         </a>
       }

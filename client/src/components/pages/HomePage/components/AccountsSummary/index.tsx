@@ -21,14 +21,14 @@ export const AccountsSummary = (props: AccountsSummaryProps) => {
 
   return (
     <div data-test-id="accounts-summary" className="bg-white">
-      <div className="flex p-8">
-        <div className="flex-grow">
+      <div className="flex p-4">
+        <div className="px-4 flex-grow hover:bg-slate-200">
           <Link to={AppRoutes.Accounts.listAccounts.getPath()}>
             <SectionHeader label="All Accounts" />
             <div>Total: $0</div>
           </Link>
         </div>
-        <div className="flex flex-shrink items-center justify-center">
+        <div className="flex flex-shrink items-center justify-center px-4">
           [add account]
         </div>
       </div>

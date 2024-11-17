@@ -30,7 +30,7 @@ export interface Transaction {
   pending: boolean;
 }
 
-export interface SpendTracker {
+export interface SpendingTracker {
   id: string;
   spend_limit: number;
   category_id: string;

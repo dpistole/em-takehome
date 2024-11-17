@@ -48,7 +48,6 @@ export const AddSpendTrackerPage = () => {
       categoryId: undefined,
       interval: "week",
     },
-    reValidateMode: "onChange",
     resolver: zodResolver(CreateSpendTrackerFormSchema),
   });
 
@@ -60,6 +59,10 @@ export const AddSpendTrackerPage = () => {
   };
 
   const isSubmitDisabled = useMemo(() => {
+    if (formState.isDirty === false) {
+      return false;
+    }
+
     if (formState.isValid) {
       return false;
     }
@@ -76,7 +79,7 @@ export const AddSpendTrackerPage = () => {
     <div date-test-id="add-spend-tracker-page" className="bg-white">
       <Header
         leftButton={
-          <HeaderBackLink to={AppRoutes.index.getPath()} label="[back]" />
+          <HeaderBackLink to={AppRoutes.index.getPath()} label="[home]" />
         }
         title="Track Spending"
       />
