@@ -1,4 +1,4 @@
-import { isSameMonth, isSameWeek } from "date-fns";
+import { isSameMonth, isWithinInterval, subDays } from "date-fns";
 import { SpendingTracker, Transaction } from "../../api-sdk/types/entities";
 
 interface GetTransactionsForSpendingTrackerParams {
@@ -16,7 +16,10 @@ export const getTransactionsForSpendingTracker = (params: GetTransactionsForSpen
     
         if (
           params.interval === "week" &&
-          isSameWeek(new Date(transaction.date), new Date())
+          isWithinInterval(new Date(transaction.date), {
+            start: subDays(new Date(), 7),
+            end: new Date(),
+          })
         ) {
           return true;
         } else if (

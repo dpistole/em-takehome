@@ -91,11 +91,13 @@ export const ViewSpendTrackerPage = () => {
       return 0;
     }
 
-    return getCategorySpendByInterval({
+    const spendTotal = getCategorySpendByInterval({
       categoryId: currentSpendingTracker.category_id,
       transactions: listTransactionsQuery.data,
       interval: currentSpendingTracker.interval,
     });
+
+    return spendTotal;
   }, [
     associatedCategory,
     currentSpendingTracker,

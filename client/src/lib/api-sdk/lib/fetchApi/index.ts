@@ -2,7 +2,7 @@ export interface FetchApiParams {
     host: string;
     path: string;
     method?: "GET" | "POST"
-    body: string;
+    body?: string;
 }
 /**
  * a small wrapper around fetch that can be reused against different api paths,

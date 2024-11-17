@@ -53,6 +53,7 @@ export const ListSpendTrackersPage = () => {
 
               return (
                 <Link
+                  key={spendingTracker.id}
                   className="hover:bg-slate-200"
                   to={AppRoutes.SpendTrackers.viewSpendTracker.getPath({
                     spendTrackerId: spendingTracker.id,

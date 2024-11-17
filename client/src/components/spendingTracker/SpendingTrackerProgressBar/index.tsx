@@ -18,7 +18,7 @@ export const SpendingTrackerProgressBar = (
     <div className="w-full px-8">
       <div
         className={classNames([
-          "h-8 w-full bg-slate-300 flex rounded-full overflow-clip",
+          "w-full bg-slate-300 flex rounded-full overflow-clip",
           {
             "h-8": size === "lg",
             "h-4": size === "sm",
