@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { AppRoutes } from "../../../../constants/AppRoutes";
 import { Route as ViewSpendTrackerRoute } from "../../../../routes/spend-trackers/$spendTrackerId";
 import { Header, HeaderBackLink } from "../../../Header";
@@ -6,7 +6,7 @@ import { useListCategoriesQuery } from "../../../../lib/api-sdk/hooks/useListCat
 import { useListSpendingTrackersQuery } from "../../../../lib/api-sdk/hooks/useListSpendingTrackersQuery";
 import { useListTransactionsQueryQuery } from "../../../../lib/api-sdk/hooks/useListTransactionsQuery";
 import { buildTimeVariables } from "../../../../buildTimeVariables";
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import {
   Category,
   SpendingTracker,
@@ -17,9 +17,15 @@ import currency from "currency.js";
 import { TransactionsList } from "../../../transactions/TransactionsList";
 import { getTransactionsForSpendingTracker } from "../../../../lib/spendingTrackers/getTransactionsForSpendingTracker";
 import { SpendingTrackerProgressBar } from "../../../spendingTracker/SpendingTrackerProgressBar";
+import { useDeleteSpendingTrackerMutation } from "../../../../lib/api-sdk/hooks/useDeleteSpendingTrackerMutation";
 
 export const ViewSpendTrackerPage = () => {
   const routeParams = ViewSpendTrackerRoute.useParams();
+  const navigate = useNavigate({
+    from: AppRoutes.SpendTrackers.viewSpendTracker.getPath({
+      spendTrackerId: routeParams.spendTrackerId,
+    }),
+  });
 
   const listCategoriesQuery = useListCategoriesQuery({
     host: buildTimeVariables.apiHost,
@@ -30,6 +36,10 @@ export const ViewSpendTrackerPage = () => {
   });
 
   const listTransactionsQuery = useListTransactionsQueryQuery({
+    host: buildTimeVariables.apiHost,
+  });
+
+  const deleteSpendingTrackerMutation = useDeleteSpendingTrackerMutation({
     host: buildTimeVariables.apiHost,
   });
 
@@ -116,6 +126,23 @@ export const ViewSpendTrackerPage = () => {
     listTransactionsQuery.data,
   ]);
 
+  const handleDelete = useCallback(() => {
+    if (currentSpendingTracker !== null) {
+      deleteSpendingTrackerMutation.mutate({
+        spendingTrackerId: currentSpendingTracker?.id,
+      });
+    }
+  }, [currentSpendingTracker, deleteSpendingTrackerMutation]);
+
+  // if the spending tracker is delete, navigate the user to the home page
+  useEffect(() => {
+    if (deleteSpendingTrackerMutation.isSuccess) {
+      navigate({
+        to: AppRoutes.index.getPath(),
+      });
+    }
+  }, [deleteSpendingTrackerMutation.isSuccess, navigate]);
+
   return (
     <div data-test-id="view-spending-tracker-page" className="bg-white">
       <Header
@@ -151,7 +178,14 @@ export const ViewSpendTrackerPage = () => {
             </Link>
 
             <div className=" hover:bg-slate-200 p-4">
-              <span className="text-xl">[Delete]</span>
+              <button
+                disabled={currentSpendingTracker === null}
+                onClick={() => {
+                  handleDelete();
+                }}
+              >
+                <span className="text-xl">[Delete]</span>
+              </button>
             </div>
           </div>
           <div className="px-8 py-2 flex items-center justify-start">

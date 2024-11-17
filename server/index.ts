@@ -13,7 +13,7 @@ const app = new Hono();
 app.use(cors())
 
 // cutting edge database technology
-const spendingTrackersDatabase: SpendingTracker[] = SpendingTrackers;
+let spendingTrackersDatabase: SpendingTracker[] = SpendingTrackers;
 
 app
   .get("/accounts", (c) => {
@@ -60,9 +60,30 @@ app
         error: "failed to parse body", 
       }, 400)
     }
+  })
+  .post("/spending-trackers/delete", async (c) => {
+    try {
+      const body = await c.req.json();
+      // parse the request body for expected params
+      const parseResult = z.object({
+        spendingTrackerId: z.string()
+      }).safeParse(body);
 
+      if(parseResult.success === false) {
+        return c.json({
+          error: "bad syntax",
+        }, 400)
+      }
 
+      spendingTrackersDatabase = spendingTrackersDatabase.filter(sP => sP.id !== parseResult.data.spendingTrackerId)
 
+      return c.json(null);
+
+    } catch (error) {
+      return c.json({
+        error: "failed to parse body", 
+      }, 400)
+    }
   });
 
 const port = 3000;
