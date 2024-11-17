@@ -61,6 +61,41 @@ app
       }, 400)
     }
   })
+  .post("/spending-trackers/update", async (c) => {
+    try {
+      const body = await c.req.json();
+      // parse the request body for expected params
+      const parseResult = z.object({
+        id: z.string(),
+        spendLimit: z.number(),
+        categoryId: z.string(),
+        interval: z.enum(["week", "month"]),
+      }).safeParse(body);
+
+      if(parseResult.success === false) {
+        return c.json({
+          error: "bad syntax",
+        }, 400)
+      }
+
+      // filter out the existing record
+      spendingTrackersDatabase = spendingTrackersDatabase.filter(sP => sP.id !== parseResult.data.id)
+      const updatedSpendingTracker = {
+        id: parseResult.data.id,
+        spend_limit: parseResult.data.spendLimit,
+        category_id: parseResult.data.categoryId,
+        interval: parseResult.data.interval
+      };
+      // add the "updated" record
+      spendingTrackersDatabase.push(updatedSpendingTracker)
+      return c.json(updatedSpendingTracker);
+
+    } catch (error) {
+      return c.json({
+        error: "failed to parse body", 
+      }, 400)
+    }
+  })
   .post("/spending-trackers/delete", async (c) => {
     try {
       const body = await c.req.json();
