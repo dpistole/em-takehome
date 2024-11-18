@@ -1,5 +1,5 @@
 import { format, subDays } from "date-fns";
-import { Account, Category, Transaction } from "./types";
+import { Account, Category, SpendingTracker, Transaction } from "./types";
 
 const today = new Date(Date.now());
 const dateFormatted = (sub: number) =>
@@ -148,3 +148,30 @@ export const categories: Category[] = [
     name: "Groceries",
   },
 ];
+
+export const SpendingTrackers: SpendingTracker[] = [
+  {
+    id: "1",
+    category_id: "5",
+    spend_limit: 50.00,
+    interval: "week",
+  },
+  {
+    id: "2",
+    category_id: "4",
+    spend_limit: 40.00,
+    interval: "month",
+  },
+  {
+    id: "3",
+    category_id: "3",
+    spend_limit: 30.00,
+    interval: "month",
+  },
+  {
+    id: "4",
+    category_id: "2",
+    spend_limit: 20.00,
+    interval: "week",
+  }
+]
