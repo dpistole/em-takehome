@@ -3,7 +3,9 @@ export const buildTimeVariables = {
   // projects using zod to parse an object comprised of env variables and
   // exporting that instead, which means we can throw early on missing
   // environment variables
-  apiHost: import.meta.env.VITE_API_HOST as string,
   isDevelopmentEnvironment: import.meta.env.DEV,
-  isProductionEnvironment: import.meta.env.PROD, 
+  isProductionEnvironment: import.meta.env.PROD,
+  // normally we'd source API host from ENV, but for review im setting static
+  // apiHost: import.meta.env.VITE_API_HOST as string,
+  apiHost: 'http://localhost:3000', 
 };

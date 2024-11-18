@@ -32,7 +32,7 @@ I think having code organized in a consistent and familiar manner helps discover
 
 Normally during and after writing code I'll often refactor a bit (move files, rename files, make DRY) in an attempt to bring my code more towards the teams coding style standards and to make things easier to maintain.
 
-For this exercise I was prototyping rapidly, and did not expend much energy on code organization during, and none after. Where files landed is more a result of my personal preferences and muscle memory, and more variable names are the first thing I could think of.
+For this exercise I was prototyping rapidly, and did not expend much energy on code organization during, and none after. Where files landed is more a result of my personal preferences and muscle memory, and most variable names are the first thing I could think of.
 
 ## polish
 

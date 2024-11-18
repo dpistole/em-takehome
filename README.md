@@ -6,7 +6,7 @@ I've created a quick markdown doc with gif recordings of the user story flows he
 
 ## Preparation
 
-Next things next, let's talk a little about the pregame planning. After receiving a high level overview of the task, I prepared by familiarizing myself with your mobile application UI.
+After receiving a high level overview of the task, I prepared by familiarizing myself with your mobile application UI.
 
 I looked at the different screens in the `Analysis` section of the mobile app, and chopped them up in Figma to familiarize myself with the layout and component variety. Then with the user stories as a guide, I determined which pages/components would be required for the critical paths, and which could be eliminated from scope (as there are time constraints).
 

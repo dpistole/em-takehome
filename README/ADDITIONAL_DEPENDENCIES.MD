@@ -16,7 +16,7 @@ Classnames is a library that can be used to merge and apply business logic to a 
 
 ### @tanstack/react-router
 
-Traditionally I've been a `react-router` user, but since I was running with `@tanstack/react-query`, and since routing is fairly straightforward, I felt like that `@tanstack/react-router` would meet my needs without having a learning curve that would slow progress. I think the homogenous nature of the `tanstack` packages is a benefit as well, as the coding style and documentation are consistent between them.
+Traditionally I've been a `react-router` user, but since I was running with `@tanstack/react-query`, and since routing is fairly straightforward, I felt like that `@tanstack/react-router` would meet my needs without having a learning curve that would slow progress. I think the homogeneous nature of the `tanstack` packages is a benefit as well, as the coding style and documentation are consistent between them.
 
 ### @tanstack/react-query
 
